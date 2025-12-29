@@ -1,0 +1,34 @@
+{
+    "name": "mimi-date",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@element-plus/icons-vue": "^2.3.2",
+        "element-plus": "^2.13.0",
+        "ulid": "^3.0.2",
+        "vditor": "^3.11.2",
+        "vue": "^3.5.22",
+        "vuex": "^4.0.2",
+        "xe-utils": "^3.8.2"
+    },
+    "devDependencies": {
+        "@vite-pwa/assets-generator": "^1.0.2",
+        "@vitejs/plugin-vue": "^6.0.1",
+        "postcss-safe-area": "^0.1.1",
+        "sass": "^1.97.1",
+        "unocss": "^66.5.11",
+        "vite": "^7.1.9",
+        "vite-plugin-pwa": "^1.1.0",
+        "workbox-window": "^7.4.0"
+    },
+    "resolutions": {
+        "sharp": "^0.33.5",
+        "sharp-ico": "^0.1.5"
+    }
+}
