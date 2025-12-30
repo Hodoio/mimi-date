@@ -1,7 +1,8 @@
 <script setup>
 import { ref, watch, defineProps, defineExpose, defineEmits, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex'
-import { Delete } from '@element-plus/icons-vue'
+import { Delete, Upload, Download } from '@element-plus/icons-vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 // 全局变量
 const { proxy } = getCurrentInstance()
@@ -10,7 +11,9 @@ const emit = defineEmits([
     'addNewRecord',
     'selectRecord',
     'changeRecord',
-    'deleteRecord'
+    'deleteRecord',
+    'exportData',
+    'importData'
 ])
 const calendarValue = ref(new Date())
 const recordList = ref([])
@@ -52,6 +55,12 @@ const handlerChoiceRecord = (uid) => {
 const handlerDeleteRecord = (uid) => {
     emit('deleteRecord')
 }
+const handlerExportData = () => {
+    emit('exportData')
+}
+const handlerImportData = () => {
+    emit('importData')
+}
 
 // 监听
 watch(calendarValue, () => {
@@ -71,13 +80,17 @@ defineExpose({
             <el-calendar v-model="calendarValue" />
         </div>
         <div>
-            <div>
-                <el-button type="primary" class="ml-18px" @click="handlerAddNewRecord">新增记录</el-button>
+            <div class="flex justify-between items-center px-18px">
+                <el-button type="primary" @click="handlerAddNewRecord">新增记录</el-button>
+                <div>
+                    <el-button :icon="Download" @click="handlerExportData" title="导出数据">导出</el-button>
+                    <el-button :icon="Upload" @click="handlerImportData" title="导入数据">导入</el-button>
+                </div>
             </div>
             <div class="mt-12px h-[calc(100vh-500px)] px-12px overflow-y-auto">
                 <template v-if="recordList.length > 0">
                     <el-card class="mb-8px" 
-                        :class="[recordUid === item.uid ? 'border-color-blue' : '']"
+                        :class="[recordUid === item.uid ? 'border-color-[var(--el-color-primary)]' : '']"
                         v-for="(item, _) in recordList" :key="item.uid" shadow="never" @click="handlerChoiceRecord(item.uid)">
                         <div class="flex justify-between items-center">
                             <el-tag type="info">{{ item.title }}</el-tag>

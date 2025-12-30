@@ -3,21 +3,30 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import UnoCss from 'unocss/vite'
 import path from 'path'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: './',
-    build: {
-        outDir: 'docs'
-    },
     server: {
         host: '0.0.0.0',
         port: 3000
+    },
+    base: './',
+    build: {
+        outDir: 'docs'
     },
     resolve: {
         alias: {
             '@': path.resolve(__dirname, 'src'),
         },
+    },
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: `@use "@/assets/css/var.scss" as *;`,
+            }
+        }
     },
     plugins: [
         vue(),
@@ -41,6 +50,7 @@ export default defineConfig({
                 globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
                 cleanupOutdatedCaches: true,
                 clientsClaim: true,
+                maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
             },
 
             devOptions: {
@@ -53,5 +63,12 @@ export default defineConfig({
         UnoCss({
             configFile: './uno.config.js'
         }),
+        Components({
+            resolvers: [
+                ElementPlusResolver({
+                    importStyle: 'sass'
+                })
+            ]
+        })
     ],
 })

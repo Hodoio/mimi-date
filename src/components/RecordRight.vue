@@ -35,9 +35,19 @@ watch(content, async () => {
     await nextTick()
     editorShow.value = true
 })
+watch(isSaved, (newVal) => {
+    if (newVal) {
+        editor.value.vditor.enable()
+    } else {
+        editor.value.vditor.disabled()
+    }
+})
 
 onMounted(async () => {
     await nextTick()
+    setTimeout(() => {
+        editor.value.vditor.disabled()
+    }, 200)
 })
 
 defineExpose({
