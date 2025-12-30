@@ -38,7 +38,7 @@ onMounted(() => {
         cache: {
             enable: false,
         },
-        cdn: "",
+        cdn: "./",
         after: () => {
             if (props.defaultContent) {
                 vditor.value.setValue(props.defaultContent)
